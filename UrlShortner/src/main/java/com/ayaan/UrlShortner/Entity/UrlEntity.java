@@ -1,7 +1,6 @@
 package com.ayaan.UrlShortner.Entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 
 @Table(name = "urls")
-public class Url {
+public class UrlEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +39,8 @@ public class Url {
 
     private Long clickCount = 0L;
 
-
+    @JoinColumn(name = "urlId",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Users user;
 
 }
