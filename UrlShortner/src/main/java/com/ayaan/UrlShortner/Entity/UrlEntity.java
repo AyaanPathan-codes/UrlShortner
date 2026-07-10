@@ -39,7 +39,8 @@ public class UrlEntity {
     private LocalDateTime expiresAt;
 
     private Long clickCount = 0L;
-    private String Status;
+    @Enumerated(EnumType.STRING)
+    private UrlStatus Status;
     @JoinColumn(name = "userId",nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Users user;
