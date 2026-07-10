@@ -1,5 +1,6 @@
 package com.ayaan.UrlShortner.Entity;
 
+import com.ayaan.UrlShortner.Entity.Enums.UrlStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,9 +39,12 @@ public class UrlEntity {
     private LocalDateTime expiresAt;
 
     private Long clickCount = 0L;
-
-    @JoinColumn(name = "urlId",nullable = false)
+    private String Status;
+    @JoinColumn(name = "userId",nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Users user;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UrlStatus urlStatus = UrlStatus.ACTIVE;
 }
