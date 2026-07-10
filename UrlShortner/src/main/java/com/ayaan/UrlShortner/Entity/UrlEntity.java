@@ -39,6 +39,7 @@ public class UrlEntity {
     private LocalDateTime expiresAt;
 
     private Long clickCount = 0L;
+
     @Enumerated(EnumType.STRING)
     private UrlStatus Status;
     @JoinColumn(name = "userId",nullable = false)
