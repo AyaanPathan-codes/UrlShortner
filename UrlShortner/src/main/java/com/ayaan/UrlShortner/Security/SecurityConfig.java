@@ -20,20 +20,23 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
 
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService, JwtFilter jwtFilter) {
         this.customUserDetailsService = customUserDetailsService;
+        this.jwtFilter = jwtFilter;
     }
 
+    private final JwtFilter jwtFilter;
 
-
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
                    .csrf(csrf -> csrf.disable())
                     .authorizeHttpRequests(auth -> auth
-                            .requestMatchers("/register", "/login").permitAll()
+                            .requestMatchers("/api/auth/register", "/api/auh/login").permitAll()
                             .anyRequest().authenticated()
                     );
-            http.addFilterBefore(JwtFilter,
+            http.addFilterBefore(jwtFilter,
                     UsernamePasswordAuthenticationFilter.class);
             return http.build();
         }

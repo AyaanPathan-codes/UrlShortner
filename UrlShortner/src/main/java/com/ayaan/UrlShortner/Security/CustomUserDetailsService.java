@@ -1,5 +1,6 @@
 package com.ayaan.UrlShortner.Security;
 
+import com.ayaan.UrlShortner.Entity.CustomUserDetails;
 import com.ayaan.UrlShortner.Entity.Users;
 import com.ayaan.UrlShortner.Repo.UsersRepo;
 import org.springframework.security.core.userdetails.User;
@@ -21,10 +22,6 @@ public class CustomUserDetailsService  implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Users user = userRepo.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
-        return User.builder()
-                .username(user.getEmail())
-                .password(user.getPasswordHash())
-                .roles(user.getRole().name())
-                .build();
+        return new CustomUserDetails(user);
     }
 }

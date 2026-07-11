@@ -24,5 +24,14 @@ public class CustomExceptions {
             super(message);
         }
     }
+// inside your CustomExceptions class, as static nested classes,
+// matching the pattern from your screenshot earlier
 
+    public static class DuplicateEmailException extends RuntimeException {
+        public DuplicateEmailException(String message) { super(message); }
+    }
+
+    public static class UserNotFoundException extends RuntimeException {
+        public UserNotFoundException(String message) { super(message); }
+    }
 }
