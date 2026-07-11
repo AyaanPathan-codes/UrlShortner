@@ -2,12 +2,14 @@ package com.ayaan.UrlShortner.Controller;
 
 import com.ayaan.UrlShortner.Dto.CreateUrlReqDto;
 import com.ayaan.UrlShortner.Dto.UrlResponseDto;
+import com.ayaan.UrlShortner.Entity.CustomUserDetails;
 import com.ayaan.UrlShortner.Entity.UrlEntity;
 import com.ayaan.UrlShortner.Entity.Users;
 import com.ayaan.UrlShortner.Service.UrlService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +29,8 @@ public class UrlController {
     }
     @PostMapping
     public ResponseEntity<UrlResponseDto> createUrl(@RequestBody @Valid CreateUrlReqDto request,
-                                                    Users user) {
-
+                                                    @AuthenticationPrincipal CustomUserDetails principal) {
+        Users user = principal.getUser();
         UrlEntity created = urlService.createShortUrlSafely(
                 request.longUrl(),
                 request.customAlias(),

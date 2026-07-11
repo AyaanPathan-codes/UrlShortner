@@ -40,13 +40,11 @@ public class UrlEntity {
 
     private Long clickCount = 0L;
 
-    @Enumerated(EnumType.STRING)
-    private UrlStatus Status;
     @JoinColumn(name = "userId",nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Users user;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UrlStatus urlStatus = UrlStatus.ACTIVE;
+    private UrlStatus status = UrlStatus.ACTIVE;
 }
