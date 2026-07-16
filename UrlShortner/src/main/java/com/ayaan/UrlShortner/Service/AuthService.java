@@ -40,6 +40,9 @@ public class AuthService {
             throw new CustomExceptions.DuplicateEmailException(
                     "An account with this email already exists");
         }
+        if(request.password().length() < 8) {
+            throw new RuntimeException("Password too short");
+        }
 
         Users user = new Users();
         user.setEmail(request.email());
