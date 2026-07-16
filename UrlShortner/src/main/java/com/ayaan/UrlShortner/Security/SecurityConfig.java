@@ -34,6 +34,7 @@ public class SecurityConfig {
                    .csrf(csrf -> csrf.disable())
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers("/api/auth/register", "/api/auh/login").permitAll()
+                            .requestMatchers("/{shortCode}").permitAll()
                             .anyRequest().authenticated()
                     );
             http.addFilterBefore(jwtFilter,
