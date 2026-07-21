@@ -24,6 +24,7 @@ public class UrlController {
     @Value("${app.base-url}")
     private String baseUrl;
 
+
     public UrlController(UrlService urlService) {
         this.urlService = urlService;
     }
