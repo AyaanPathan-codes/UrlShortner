@@ -33,7 +33,7 @@ public class SecurityConfig {
             http
                    .csrf(csrf -> csrf.disable())
                     .authorizeHttpRequests(auth -> auth
-                            .requestMatchers("/api/auth/register", "/api/auh/login").permitAll()
+                            .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                             .requestMatchers("/{shortCode}").permitAll()
                             .anyRequest().authenticated()
                     );

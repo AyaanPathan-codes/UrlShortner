@@ -24,6 +24,7 @@ public class RedirectController {
         @GetMapping("/{shortCode}")
         public ResponseEntity<Void> redirect(@PathVariable String shortCode) {
             CachedUrlDto cached = urlService.getActiveUrlOrThrow(shortCode);
+            urlService.incrementClickCount(shortCode);
 
             return ResponseEntity.status(HttpStatus.FOUND)
                     .location(URI.create(cached.url()))

@@ -41,4 +41,8 @@ public class UrlController {
 
         return ResponseEntity.ok(UrlResponseDto.from(created, baseUrl));
     }
+
+    public ResponseEntity<UrlResponseDto> getUrl(){
+
+    }
 }

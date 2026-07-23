@@ -132,4 +132,10 @@ public class UrlService {
         }
     }
 
+
+    // UrlService — new method, NOT cached, always runs
+    @Transactional
+    public void incrementClickCount(String shortCode) {
+        urlRepo.incrementClickCount(shortCode);
+    }
 }
