@@ -1,5 +1,6 @@
 package com.ayaan.UrlShortner.Controller;
 
+import com.ayaan.UrlShortner.Dto.CachedUrlDto;
 import com.ayaan.UrlShortner.Entity.UrlEntity;
 import com.ayaan.UrlShortner.Service.UrlService;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,10 @@ public class RedirectController {
 
         @GetMapping("/{shortCode}")
         public ResponseEntity<Void> redirect(@PathVariable String shortCode) {
-            UrlEntity entity = urlService.getActiveUrlOrThrow(shortCode);
+            CachedUrlDto cached = urlService.getActiveUrlOrThrow(shortCode);
 
             return ResponseEntity.status(HttpStatus.FOUND)
-                    .location(URI.create(entity.getUrl()))
+                    .location(URI.create(cached.url()))
                     .build();
         }
     }

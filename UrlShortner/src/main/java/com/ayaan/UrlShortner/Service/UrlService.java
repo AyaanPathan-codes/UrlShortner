@@ -1,5 +1,6 @@
 package com.ayaan.UrlShortner.Service;
 
+import com.ayaan.UrlShortner.Dto.CachedUrlDto;
 import com.ayaan.UrlShortner.Entity.Enums.PlanType;
 import com.ayaan.UrlShortner.Entity.Enums.UrlStatus;
 import com.ayaan.UrlShortner.Entity.UrlEntity;
@@ -95,7 +96,7 @@ public class UrlService {
 
     @Cacheable(value = "urlCache", key = "#shortCode")
     @Transactional(readOnly=true)
-    public UrlEntity getActiveUrlOrThrow(String shortCode) {
+    public CachedUrlDto getActiveUrlOrThrow(String shortCode) {
         UrlEntity entity = urlRepo.findByShortUrl(shortCode)
                 .orElseThrow(() -> new CustomExceptions.UrlNotFoundException(
                         "No URL found for code: " + shortCode));
@@ -110,13 +111,17 @@ public class UrlService {
             throw new CustomExceptions.UrlExpiredException("This link has expired");
         }
 
-        return entity;
+        return new CachedUrlDto(entity.getId(),entity.getUrl(),entity.getStatus(),entity.getExpiresAt());
     }
 
 
     @CacheEvict(value = "urlCache", key = "#shortCode")
     public void disableUrl(String shortCode) {
-
+        UrlEntity entity = urlRepo.findByShortUrl(shortCode)
+                .orElseThrow(() -> new CustomExceptions.UrlNotFoundException(
+                        "No URL found for code: " + shortCode));
+        entity.setStatus(UrlStatus.DISABLED);
+        urlRepo.save(entity);
     }
     private void validateCustomAliasPermission(String customAlias, Users user) {
         boolean wantsCustomAlias = customAlias != null && !customAlias.isBlank();
