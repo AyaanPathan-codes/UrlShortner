@@ -7,6 +7,8 @@ import com.ayaan.UrlShortner.Entity.Users;
 import com.ayaan.UrlShortner.Exceptions.CustomExceptions;
 import com.ayaan.UrlShortner.Repo.UrlRepo;
 import com.ayaan.UrlShortner.Utils.ShortCodeGenerator;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -91,7 +93,7 @@ public class UrlService {
 
     // ---------- READ / RESOLVE ----------
 
-
+    @Cacheable(value = "urlCache", key = "#shortCode")
     @Transactional(readOnly=true)
     public UrlEntity getActiveUrlOrThrow(String shortCode) {
         UrlEntity entity = urlRepo.findByShortUrl(shortCode)
@@ -111,6 +113,11 @@ public class UrlService {
         return entity;
     }
 
+
+    @CacheEvict(value = "urlCache", key = "#shortCode")
+    public void disableUrl(String shortCode) {
+
+    }
     private void validateCustomAliasPermission(String customAlias, Users user) {
         boolean wantsCustomAlias = customAlias != null && !customAlias.isBlank();
 

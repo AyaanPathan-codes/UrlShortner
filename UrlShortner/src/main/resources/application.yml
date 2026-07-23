@@ -1,6 +1,10 @@
 spring:
   application:
     name: UrlShortner
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
   datasource:
     url: jdbc:postgresql://localhost:5432/UrlShortner
