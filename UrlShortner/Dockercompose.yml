@@ -28,7 +28,7 @@ services:
       retries: 5
 
   app:
-    build: .
+    build: src/main/java/com/ayaan/UrlShortner/Docker
     container_name: urlshortener-app
     ports:
       - "8080:8080"
