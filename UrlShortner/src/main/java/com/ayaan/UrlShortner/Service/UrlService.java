@@ -115,14 +115,6 @@ public class UrlService {
     }
 
 
-    @CacheEvict(value = "urlCache", key = "#shortCode")
-    public void disableUrl(String shortCode) {
-        UrlEntity entity = urlRepo.findByShortUrl(shortCode)
-                .orElseThrow(() -> new CustomExceptions.UrlNotFoundException(
-                        "No URL found for code: " + shortCode));
-        entity.setStatus(UrlStatus.DISABLED);
-        urlRepo.save(entity);
-    }
     private void validateCustomAliasPermission(String customAlias, Users user) {
         boolean wantsCustomAlias = customAlias != null && !customAlias.isBlank();
 
