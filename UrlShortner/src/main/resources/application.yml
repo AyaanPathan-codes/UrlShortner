@@ -3,17 +3,16 @@ spring:
     name: UrlShortner
   data:
     redis:
-      host: ${DB_HOST:localhost}
-      port:  ${REDIS_PORT:6379}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
   cache:
-    type : redis
-    cache-names : "urlCache"
+    type: redis
+    cache-names: "urlCache"
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:UrlShortner}
-    username:  ${DB_USERNAME:postgres}
-    password:  ${DB_USERNAME:postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update      # create | create-drop | update | validate
@@ -30,7 +29,7 @@ app:
   base-url: ${APP_BASE_URL:http://localhost:8080}
 
 jwt:
-  secret: MDEyMzQ1Njc4OUFCQ0RFRjAxMjM0NTY3ODlBQkNERUYwMTIzNDU2Nzg5QUJDREVG
+  secret: ${JWT_SECRET:changeme-local-dev-only-not-for-production}
   expiration: ${JWT_EXPIRATION:86400000}  # 24 Hours (milliseconds)
 
 logging:
