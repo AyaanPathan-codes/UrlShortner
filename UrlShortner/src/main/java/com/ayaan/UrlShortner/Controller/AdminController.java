@@ -24,6 +24,7 @@ public class AdminController {
 
     @GetMapping("/users")
     public ResponseEntity<List<Users>> getAllUsers() {
+        System.out.println("AdminController getAllUsers");
         return ResponseEntity.ok(adminService.getAllUsers());
     }
 
