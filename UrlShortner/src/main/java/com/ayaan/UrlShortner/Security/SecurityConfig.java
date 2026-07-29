@@ -1,6 +1,7 @@
 package com.ayaan.UrlShortner.Security;
 
 
+import com.ayaan.UrlShortner.Config.RateLimitingConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,14 +22,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
+    private final RateLimitingConfig rateLimitingConfig;
+    private final JwtFilter jwtFilter;
 
-
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService, JwtFilter jwtFilter) {
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService, JwtFilter jwtFilter, RateLimitingConfig rateLimitingConfig) {
         this.customUserDetailsService = customUserDetailsService;
         this.jwtFilter = jwtFilter;
+        this.rateLimitingConfig = rateLimitingConfig;
     }
 
-    private final JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -41,6 +43,7 @@ public class SecurityConfig {
                     );
             http.addFilterBefore(jwtFilter,
                     UsernamePasswordAuthenticationFilter.class);
+             http.addFilterAfter(rateLimitingConfig, JwtFilter.class);
             return http.build();
         }
 
