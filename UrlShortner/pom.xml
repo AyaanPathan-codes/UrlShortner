@@ -56,6 +56,11 @@
             <version>4.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.razorpay</groupId>
+            <artifactId>razorpay-java</artifactId>
+            <version>1.4.7</version>
+        </dependency>
 
         <!-- For java 17+ -->
         <dependency>
