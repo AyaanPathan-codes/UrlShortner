@@ -1,6 +1,6 @@
 package com.ayaan.UrlShortner.Controller;
 
-import com.ayaan.UrlShortner.Security.CustomUserDetailsService;
+import com.ayaan.UrlShortner.Entity.CustomUserDetails;
 import com.ayaan.UrlShortner.Service.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class PaymentController {
     }
 
     @PostMapping("/create-order")
-    public ResponseEntity<String> createOrder(@AuthenticationPrincipal CustomUserDetailsService principal) throws Exception {
+    public ResponseEntity<String> createOrder(@AuthenticationPrincipal CustomUserDetails principal) throws Exception {
         String orderJson = paymentService.createOrder(principal.getUser(), PREMIUM_PRICE_PAISE);
         return ResponseEntity.ok(orderJson);
     }
