@@ -39,6 +39,7 @@ public class SecurityConfig {
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                             .requestMatchers("/{shortCode}").permitAll()
+                            .requestMatchers("/api/auth/register", "/api/auth/login", "/api/payments/webhook").permitAll()
                             .anyRequest().authenticated()
                     );
             http.addFilterBefore(jwtFilter,
