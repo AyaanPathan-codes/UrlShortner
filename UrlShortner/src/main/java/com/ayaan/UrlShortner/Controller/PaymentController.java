@@ -15,7 +15,7 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-    private static final int PREMIUM_PRICE_PAISE = 499; // ₹499, fixed server-side
+    private static final int PREMIUM_PRICE_PAISE = 49900; // ₹499, fixed server-side
 
     public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;

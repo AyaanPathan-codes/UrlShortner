@@ -63,7 +63,9 @@ public class PaymentService {
 
     @Transactional
     public void handleWebhook(String payload, String signatureHeader) throws Exception {
-
+        System.out.println("Event Payload:");
+        System.out.println(payload);
+        System.out.println("Signature: " + signatureHeader);
         boolean isValid = Utils.verifyWebhookSignature(payload, signatureHeader, webhookSecret);
         if (!isValid) {
             throw new SecurityException("Invalid webhook signature — possible spoofed request");
@@ -81,7 +83,9 @@ public class PaymentService {
                 .getJSONObject("payment")
                 .getJSONObject("entity");
 
+        System.out.println("Event = " + event.getString("event"));
         String razorpayOrderId = paymentEntity.getString("order_id");
+
 
         PaymentOrder order = paymentOrderRepo.findByRazorpayOrderId(razorpayOrderId)
                 .orElseThrow(() -> new RuntimeException(

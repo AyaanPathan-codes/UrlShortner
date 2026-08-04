@@ -1,6 +1,6 @@
 package com.ayaan.UrlShortner.Controller;
 
-import com.ayaan.UrlShortner.Entity.PaymentEntity;
+import com.ayaan.UrlShortner.Entity.PaymentOrder;
 import com.ayaan.UrlShortner.Entity.UrlEntity;
 import com.ayaan.UrlShortner.Entity.Users;
 import com.ayaan.UrlShortner.Service.AdminService;
@@ -66,15 +66,15 @@ public class AdminController {
         return ResponseEntity.noContent().build();
     }
 
-
-
-    @GetMapping("/payments")
-    public ResponseEntity<List<PaymentEntity>> getAllPayments() {
-        return ResponseEntity.ok(adminService.getAllPayments());
-    }
-
-    @GetMapping("/payments/user/{userId}")
-    public ResponseEntity<List<PaymentEntity>> getUserPayments(@PathVariable Long userId) {
-        return ResponseEntity.ok(adminService.getPaymentsForUser(userId));
-    }
 }
+
+//    @GetMapping("/payments")
+//    public ResponseEntity<List<PaymentOrder>> getAllPayments() {
+//        return ResponseEntity.ok(adminService.getAllPayments());
+//    }
+//
+//    @GetMapping("/payments/user/{userId}")
+//    public ResponseEntity<List<PaymentOrder>> getUserPayments(@PathVariable Long userId) {
+//        return ResponseEntity.ok(adminService.getPaymentsForUser(userId));
+//    }
+//}
