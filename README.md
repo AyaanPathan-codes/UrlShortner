@@ -36,6 +36,24 @@ A production-oriented URL Shortener built with **Spring Boot**, **Spring Securit
 
 ---
 
+
+## Live API
+
+The backend is deployed on Railway.
+
+### Base URL
+
+https://your-app.up.railway.app
+
+### API Documentation
+
+https://your-app.up.railway.app/swagger-ui/index.html
+
+### Health Check
+
+GET /health
+
+--- 
 # 📂 Project Structure
 
 ```
