@@ -36,6 +36,8 @@ public class UrlService {
     public UrlEntity createShortUrlSafely(String longUrl, String customAlias,
                                           LocalDateTime expiresAt, Users user) {
         validateCustomAliasPermission(customAlias, user);
+        validateCustomAliasPermission(customAlias, user);
+        validateFreePlanLimit(user);
         for (int attempt = 0; attempt < MAX_RETRIES; attempt++) {
             try {
                 if (user.getPlanType() == PlanType.FREE) {
@@ -128,7 +130,18 @@ public class UrlService {
                     "Custom aliases are only available on paid plans");
         }
     }
+    private void validateFreePlanLimit(Users user) {
 
+        if (user.getPlanType() == PlanType.FREE) {
+
+            long count = urlRepo.countByUserAndStatus(user, UrlStatus.ACTIVE);
+
+            if (count >= 10) {
+                throw new CustomExceptions.PlanRestrictionException(
+                        "Free plan limited to 10 active links");
+            }
+        }
+    }
 
     // UrlService — new method, NOT cached, always runs
     @Transactional
