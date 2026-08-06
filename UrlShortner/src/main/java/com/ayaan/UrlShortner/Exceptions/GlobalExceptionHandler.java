@@ -148,6 +148,18 @@ public class GlobalExceptionHandler {
                 ));
     }
 
+    @ExceptionHandler(CustomExceptions.PlanRestrictionException.class)
+    public ResponseEntity<ErrorResponse> handlePlanRestriction(
+            CustomExceptions.PlanRestrictionException ex,
+            HttpServletRequest request) {
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(buildError(
+                        HttpStatus.FORBIDDEN,
+                        ex.getMessage(),
+                        request
+                ));
+    }
     // ===========================
     // Any Other Exception
     // ===========================

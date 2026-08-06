@@ -36,7 +36,6 @@ public class UrlService {
     public UrlEntity createShortUrlSafely(String longUrl, String customAlias,
                                           LocalDateTime expiresAt, Users user) {
         validateCustomAliasPermission(customAlias, user);
-        validateCustomAliasPermission(customAlias, user);
         validateFreePlanLimit(user);
         for (int attempt = 0; attempt < MAX_RETRIES; attempt++) {
             try {
