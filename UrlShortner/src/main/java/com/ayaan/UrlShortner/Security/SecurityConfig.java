@@ -40,6 +40,11 @@ public class SecurityConfig {
                             .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                             .requestMatchers("/{shortCode}").permitAll()
                             .requestMatchers("/api/auth/register", "/api/auth/login", "/api/payments/webhook").permitAll()
+                            .requestMatchers(
+                                    "/v3/api-docs/**",    // Raw OpenAPI JSON/YAML data
+                                    "/swagger-ui/**",     // Swagger UI HTML, JS, and CSS files
+                                    "/swagger-ui.html"    // Swagger UI redirect page
+                            ).permitAll()
                             .anyRequest().authenticated()
                     );
             http.addFilterBefore(jwtFilter,

@@ -42,7 +42,7 @@ public class UrlService {
             try {
                 if (user.getPlanType() == PlanType.FREE) {
                     long count = urlRepo.countByUserAndStatus(user, UrlStatus.ACTIVE);
-                    if (count >= 10) throw new CustomExceptions.PlanRestrictionException("Free plan limited to 10 active links");
+                    if (count >= 5) throw new CustomExceptions.PlanRestrictionException("Free plan limited to 5 active links");
                 }
                 String shortCode = resolveShortCode(customAlias, attempt);
                 return saveNewUrl(longUrl, shortCode, expiresAt, user);
