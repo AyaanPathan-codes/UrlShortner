@@ -25,6 +25,7 @@ spring:
 
 server:
   port: ${PORT:8080 }
+  forward-headers-strategy: framework
 
 app:
   base-url: ${APP_BASE_URL:http://localhost:8080}
@@ -43,3 +44,7 @@ razorpay:
   key-id: ${RAZORPAY_KEY_ID}
   key-secret: ${RAZORPAY_KEY_SECRET}
   webhook-secret: ${RAZORPAY_WEBHOOK_SECRET}
+
+springdoc:
+  swagger-ui:
+    use-root-path: true
