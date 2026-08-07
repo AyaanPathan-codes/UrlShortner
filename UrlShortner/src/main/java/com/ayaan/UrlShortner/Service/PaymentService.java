@@ -1,5 +1,6 @@
 package com.ayaan.UrlShortner.Service;
 
+import com.ayaan.UrlShortner.Dto.CreateOrderResponse;
 import com.ayaan.UrlShortner.Entity.Enums.PlanType;
 import com.ayaan.UrlShortner.Entity.PaymentOrder;
 import com.ayaan.UrlShortner.Entity.Users;
@@ -36,8 +37,10 @@ public class PaymentService {
     // ---------- CREATE ORDER ----------
 
     @Transactional
-    public String createOrder(Users user, int amountInPaise) throws Exception {
+    public CreateOrderResponse createOrder(Users user, int amountInPaise) throws Exception {
+
         RazorpayClient client = new RazorpayClient(keyId, keySecret);
+
 
         JSONObject options = new JSONObject();
         options.put("amount", amountInPaise);
@@ -45,18 +48,21 @@ public class PaymentService {
         options.put("receipt", "user_" + user.getId());
 
         Order order = client.orders.create(options);
-        String razorpayOrderId = order.get("id");
 
-        // Save the mapping BEFORE returning to client — this is what the
-        // webhook will look up later, since Razorpay won't hand your
-        // internal userId back to you reliably.
         PaymentOrder paymentOrder = new PaymentOrder();
-        paymentOrder.setRazorpayOrderId(razorpayOrderId);
+        paymentOrder.setRazorpayOrderId(order.get("id"));
         paymentOrder.setUser(user);
         paymentOrder.setAmountInPaise(amountInPaise);
+
         paymentOrderRepo.save(paymentOrder);
 
-        return order.toString();
+        return new CreateOrderResponse(
+                order.get("id").toString(),
+                Integer.parseInt(order.get("amount").toString()),
+                order.get("currency").toString(),
+                keyId
+        );
+
     }
 
     // ---------- VERIFY WEBHOOK + UPGRADE PLAN ----------

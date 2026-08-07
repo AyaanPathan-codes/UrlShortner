@@ -15,5 +15,9 @@ public record CreateUrlReqDto(
         )
         String customAlias,
 
+        @Schema(
+                description = "Optional expiration date. Leave null for a permanent link.",
+                example = "2026-12-31T23:59:59"
+        )
         LocalDateTime expiresAt) {
 }

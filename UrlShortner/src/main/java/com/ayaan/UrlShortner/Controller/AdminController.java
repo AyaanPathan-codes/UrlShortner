@@ -68,13 +68,13 @@ public class AdminController {
 
 }
 
-//    @GetMapping("/payments")
-//    public ResponseEntity<List<PaymentOrder>> getAllPayments() {
-//        return ResponseEntity.ok(adminService.getAllPayments());
-//    }
-//
-//    @GetMapping("/payments/user/{userId}")
-//    public ResponseEntity<List<PaymentOrder>> getUserPayments(@PathVariable Long userId) {
-//        return ResponseEntity.ok(adminService.getPaymentsForUser(userId));
-//    }
-//}
+    @GetMapping("/payments")
+    public ResponseEntity<List<PaymentOrder>> getAllPayments() {
+        return ResponseEntity.ok(adminService.getAllPayments());
+    }
+
+    @GetMapping("/payments/user/{userId}")
+    public ResponseEntity<List<PaymentOrder>> getUserPayments(@PathVariable Long userId) {
+        return ResponseEntity.ok(adminService.getPaymentsForUser(userId));
+    }
+}
