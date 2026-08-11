@@ -14,7 +14,6 @@ public class CacheConfig {
 
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
-
         return builder -> builder
                 .withCacheConfiguration(
                         "urlCache",
@@ -23,7 +22,7 @@ public class CacheConfig {
                                 .serializeValuesWith(
                                         RedisSerializationContext.SerializationPair
                                                 .fromSerializer(
-                                                        new GenericJacksonJsonRedisSerializer()
+                                                         GenericJacksonJsonRedisSerializer.builder().build()
                                                 )
                                 )
                 );
