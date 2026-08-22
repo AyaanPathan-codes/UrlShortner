@@ -43,11 +43,11 @@ The backend is deployed on Railway.
 
 ### Base URL
 
-https://your-app.up.railway.app
+https://urlshortner-production-c0a2.up.railway.app
 
 ### API Documentation
 
-https://your-app.up.railway.app/swagger-ui/index.html
+https://urlshortner-production-c0a2.up.railway.app/swagger-ui/index.html
 
 ### Health Check
 
