@@ -55,6 +55,7 @@ public class SecurityConfig {
             http.addFilterBefore(jwtFilter,
                     UsernamePasswordAuthenticationFilter.class);
              http.addFilterAfter(rateLimitingConfig, JwtFilter.class);
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
             return http.build();
         }
     @Bean
