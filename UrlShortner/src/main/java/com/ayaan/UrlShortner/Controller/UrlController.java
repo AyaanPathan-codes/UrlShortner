@@ -19,6 +19,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/urls")
 @Tag(
@@ -87,6 +89,18 @@ public class UrlController {
     })
     @SecurityRequirement(name = "Bearer Authentication")
 
+    @GetMapping
+    public ResponseEntity<List<UrlResponseDto>> getMyUrls(
+            @AuthenticationPrincipal CustomUserDetails principal) {
+
+        List<UrlEntity> urls = urlRepo.findByUser(principal.getUser());
+
+        List<UrlResponseDto> response = urls.stream()
+                .map(u -> UrlResponseDto.from(u, baseUrl))
+                .toList();
+
+        return ResponseEntity.ok(response);
+    }
     @PostMapping
     public ResponseEntity<UrlResponseDto> createUrl(@RequestBody @Valid CreateUrlReqDto request,
                                                     @AuthenticationPrincipal CustomUserDetails principal) {
